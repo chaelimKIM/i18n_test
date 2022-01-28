@@ -13,7 +13,6 @@
     <select id="lang-select" onchange="i18next.changeLanguage(this.value)">
         <option value="en">English</option>
         <option value="ko">Korean</option>
-        <option value="fr">French</option>
     </select>
     <h1 id="title"></h1>
     <p id="content"></p>
@@ -24,45 +23,31 @@
             document.getElementById("lang-select").options[1].setAttribute("selected", true);
         }
 
-        i18next.init(
+        i18n.init(
             {
-                lng: isKorean ? "ko" : "en",
+			    lng: isKorean ? "ko" : "en",
                     debug: true,
                     resources: {
                         ko: {
-                            translation: {
-                            title: "안녕하세요",
-                            content: "좋은 하루 되세요"
-                            }
-                },
-                en: {
-                    translation: {
-                    title: "Hello",
-                    content: "have a nice day"
+                            translation : "./locale/kr.js"
+                        },
+                         en: {
+                             translation : "./locale/en.js"
                     }
-                },
-                fr: {
-                    translation: {
-                    title: "Bonjour",
-                    content: "Passez une bonne journée!"
-                    }
-                }
-                }
-            },
+		    }, 
             function(err, t) {
-                if (err) {
-                console.error(err);
-                } else {
-                updateContent();
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        updateContent();
+                    }
                 }
-            }
-        );
-        
+            });
+
         function updateContent() {
                 document.getElementById("title").innerHTML = i18next.t("title");
                 document.getElementById("content").innerHTML = i18next.t("content");
         }
-
         i18next.on("languageChanged", () => { updateContent();});
 
     </script>
